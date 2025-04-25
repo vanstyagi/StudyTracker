@@ -31,7 +31,7 @@ A powerful web application built with HTML, CSS, and JavaScript to help students
 
 1. Clone this repository
    ```
-   git clone https://github.com/yourusername/study-tracker-pro.git
+   git clone https://github.com/vanstyagi/StudyTracker.git
    ```
 2. Open `index.html` in your browser
 3. Start tracking your study sessions!
