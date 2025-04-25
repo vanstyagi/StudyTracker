@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Tracker Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 font-inter antialiased">
+    <div class="container mx-auto px-4 py-8 max-w-7xl relative">
+        <!-- Dark Mode Toggle -->
+        <div class="absolute top-4 right-4">
+            <button id="theme-toggle" class="bg-gray-200 dark:bg-gray-800 p-2 rounded-full transition-colors hover:bg-gray-300 dark:hover:bg-gray-700">
+                <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Motivational Quote -->
+        <div id="motivational-quote" class="text-lg"></div>
+
+        <div class="lg:grid lg:grid-cols-4 lg:gap-6">
+            <!-- Sidebar / Timetable -->
+            <aside class="lg:col-span-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 h-fit sticky top-20">
+                <div class="sidebar-scroll scrollbar-custom">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400 flex items-center">
+                            <i class="fas fa-calendar-alt mr-2"></i> Weekly Timetable
+                        </h3>
+                        <button id="add-to-timetable" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition-colors">
+                            <i class="fas fa-plus mr-1"></i> Add
+                        </button>
+                    </div>
+                    <div id="weekly-timetable"></div>
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-gray-700 dark:text-gray-300">Total Weekly Plan:
+                            <span id="weekly-plan-duration" class="font-bold text-blue-600">0h 0m</span>
+                        </h4>
+                    </div>
+                    <div class="mt-4">
+                        <div class="collapsible-header" id="image-section-header">
+                            <span>Uploaded Images</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="collapsible-content" id="image-section-content">
+                            <label for="timetable-image-upload" class="cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition-colors block text-center">
+                                <i class="fas fa-upload mr-1"></i> Upload Image
+                            </label>
+                            <input type="file" id="timetable-image-upload" class="hidden" accept="image/*" multiple>
+                            <div id="timetable-image-preview-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="lg:col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Study Session Input -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                        <h2 class="text-2xl font-bold mb-6 text-indigo-600 dark:text-indigo-400"><i class="fas fa-plus-circle mr-2"></i> Add Study Session</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Subject</label>
+                                <input type="text" id="subject-name" placeholder="e.g., Mathematics" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Subject Color</label>
+                                <input type="color" id="subject-color" value="#6366f1" class="w-full h-10 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600">
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Date</label>
+                                <input type="date" id="session-date" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Study Type</label>
+                                <select id="session-type" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <option value="focused">Focused Study</option>
+                                    <option value="review">Review</option>
+                                    <option value="practice">Practice</option>
+                                    <option value="group">Group Study</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Study Duration</label>
+                                <div class="flex space-x-2">
+                                    <input type="number" id="duration-hours" placeholder="Hours" min="0" class="w-1/2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <input type="number" id="duration-minutes" placeholder="Minutes" min="0" max="59" class="w-1/2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Break Duration</label>
+                                <div class="flex space-x-2">
+                                    <input type="number" id="break-hours" placeholder="Hours" min="0" class="w-1/2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <input type="number" id="break-minutes" placeholder="Minutes" min="0" max="59" class="w-1/2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                </div>
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Notes</label>
+                                <textarea id="session-notes" placeholder="What did you study?" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex justify-between items-center">
+                            <button id="add-session-button" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                                Add Session
+                            </button>
+                            <div class="flex items-center space-x-4">
+                                <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Daily Goal (mins)</label>
+                                <input type="number" id="daily-goal" value="120" class="w-24 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Session Added Message -->
+                    <div id="session-added-message" class="session-added-message">Session Added Successfully!</div>
+
+                    <!-- Quick Stats -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400 flex items-center"><i class="fas fa-chart-bar mr-2"></i> Quick Stats</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600 dark:text-gray-300 flex items-center"><i class="fas fa-hourglass-half mr-2"></i> Today's Study</span>
+                                <span id="today-summary" class="font-bold text-green-600">0h 0m</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600 dark:text-gray-300 flex items-center"><i class="fas fa-coffee mr-2"></i> Today's Break</span>
+                                <span id="today-break-summary" class="font-bold text-orange-600">0h 0m</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600 dark:text-gray-300 flex items-center"><i class="fas fa-calendar-week mr-2"></i> This Week Study</span>
+                                <span id="week-summary" class="font-bold text-blue-600">0h 0m</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600 dark:text-gray-300 flex items-center"><i class="fas fa-coffee mr-2"></i> This Week Break</span>
+                                <span id="week-break-summary" class="font-bold text-orange-600">0h 0m</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600 dark:text-gray-300 flex items-center"><i class="fas fa-bullseye mr-2"></i> Goal Progress</span>
+                                <span id="goal-progress-text" class="font-bold text-purple-600">0%</span>
+                            </div>
+                            <div class="progress-container mt-2">
+                                <div id="goal-progress-bar" class="progress-bar" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600 dark:text-gray-300 flex items-center"><i class="fas fa-balance-scale mr-2"></i> Study/Break Ratio</span>
+                                <span id="study-break-ratio" class="font-bold text-indigo-600">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Log and Analysis -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <!-- Study Log -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 square-section">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400"><i class="fas fa-list-alt mr-2"></i> Study Log</h3>
+                            <div class="flex gap-2">
+                                <button id="export-csv" class="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"><i class="fas fa-file-csv mr-1"></i> CSV</button>
+                                <button id="export-pdf" class="px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"><i class="fas fa-file-pdf mr-1"></i> PDF</button>
+                                <button id="clear-log" class="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"><i class="fas fa-trash-alt mr-1"></i> Clear</button>
+                            </div>
+                        </div>
+                        <div id="study-log" class="space-y-3 scrollbar-custom"></div>
+                    </div>
+
+                    <!-- Achievements & Rewards -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 square-section">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400"><i class="fas fa-trophy mr-2"></i> Achievements & Rewards</h3>
+                            <span class="text-sm font-semibold text-yellow-600">Coins: <span id="reward-coins">0</span></span>
+                        </div>
+                        <div id="achievements-container" class="grid grid-cols-2 gap-4"></div>
+                    </div>
+
+                    <!-- Study Time Analysis -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 analysis-card square-section" id="analysis-card">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-indigo-600 dark:text-indigo-400"><i class="fas fa-chart-pie mr-2"></i> Study Time Analysis</h3>
+                            <i class="fas fa-chevron-right text-gray-500"></i>
+                        </div>
+                        <div id="subject-progress" class="space-y-2 scrollbar-custom"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add to Timetable Modal -->
+    <div id="timetable-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 w-full max-w-md">
+            <h3 class="text-xl font-bold mb-4 text-indigo-600 dark:text-indigo-400" id="timetable-modal-title">Add to Timetable</h3>
+            <input type="hidden" id="timetable-session-index" value="">
+            <input type="hidden" id="timetable-edit-mode" value="add">
+            <div class="space-y-4">
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Days</label>
+                    <select id="timetable-days" multiple class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Subject</label>
+                    <input type="text" id="timetable-subject" placeholder="e.g., Mathematics" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Duration (minutes)</label>
+                    <input type="number" id="timetable-duration" placeholder="e.g., 60" min="1" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Color</label>
+                    <input type="color" id="timetable-color" value="#6366f1" class="w-full h-10 border rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600">
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-4">
+                <button id="cancel-timetable" class="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors">
+                    Cancel
+                </button>
+                <button id="save-timetable" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analysis Modal -->
+    <div id="analysis-modal" class="hidden">
+        <span id="close-analysis-modal">×</span>
+        <div id="analysis-content">
+            <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-4">Study Time Analysis</h2>
+            <div id="detailed-analysis"></div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="hidden">
+        <span id="close-modal">×</span>
+        <img id="modal-image">
+    </div>
+
+    <!-- Link to your external JavaScript files -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

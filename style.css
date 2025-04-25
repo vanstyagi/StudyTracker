@@ -1,0 +1,235 @@
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #4f46e5;
+    --accent-color: #8b5cf6;
+}
+.scrollbar-custom::-webkit-scrollbar {
+    width: 8px;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background-color: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background-color: #6366f1;
+    border-radius: 4px;
+    transition: width 0.5s ease-in-out;
+}
+.dark .progress-container {
+    background-color: #374151;
+}
+.session-added-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(99, 102, 241, 0.9);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index: 50;
+}
+.session-added-message.show {
+    opacity: 1;
+    visibility: visible;
+}
+.achievement-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 8px;
+}
+.achievement-icon {
+    font-size: 2rem;
+}
+.achievement-label {
+    font-size: 0.8rem;
+    text-align: center;
+    color: #718096;
+}
+.achievement-unlocked .achievement-icon {
+    filter: none !important;
+    color: #FFD700;
+}
+.achievement-locked .achievement-icon {
+    filter: grayscale(100%);
+    opacity: 0.5;
+}
+.timetable-day, .study-log-date, .analysis-date {
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+}
+.timetable-day:last-child, .study-log-date:last-child, .analysis-date:last-child {
+    border-bottom: none;
+}
+.collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+}
+.dark .collapsible-header {
+    background-color: #4b5563;
+}
+.collapsible-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    max-height: 0;
+}
+.timetable-session, .study-log-session, .analysis-session {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    margin-bottom: 2px;
+    padding-left: 8px;
+    border-left: 3px solid;
+}
+.session-actions {
+    display: flex;
+    gap: 0.3rem;
+}
+.session-actions button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9rem;
+}
+.sidebar-scroll {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.image-preview-item {
+    position: relative;
+    margin-top: 10px;
+}
+.image-preview {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+.remove-image-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #ef4444;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    font-size: 12px;
+}
+#image-modal, #analysis-modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    overflow: auto;
+}
+#modal-image {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#close-modal, #close-analysis-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#analysis-content {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.dark #analysis-content {
+    background: #1f2937;
+    color: #e5e7eb;
+}
+.subject-breakdown-item, .break-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.subject-color-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+.analysis-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.analysis-card:hover {
+    transform: scale(1.02);
+}
+.square-section {
+    aspect-ratio: 1 / 1;
+    overflow-y: auto;
+    max-height: 400px;
+}
+#motivational-quote {
+    font-style: italic;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.dark #motivational-quote {
+    color: #9ca3af;
+}
+.notes-text {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 4px;
+}
+.dark .notes-text {
+    color: #9ca3af;
+}
