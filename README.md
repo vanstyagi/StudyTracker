@@ -1,4 +1,4 @@
-# 📚 Study Tracker Pro
+# 📚 Study Tracker
 
 A powerful web application built with HTML, CSS, and JavaScript to help students and lifelong learners track study sessions, manage weekly schedules, visualize progress, and stay motivated. All data is stored locally in your browser for privacy.
 
